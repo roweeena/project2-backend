@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :check_for_admin, :only => [:index]
-  
+
   def index
      @users = User.all
         if @users
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
        else
            render json: {
            status: 500,
-           errors: ['no users found']
+           error: ['No user found']
        }
       end
  end
@@ -23,7 +23,7 @@ def show
         else
            render json: {
            status: 500,
-           errors: ['user not found']
+           errors: ['Account not found']
          }
         end
    end

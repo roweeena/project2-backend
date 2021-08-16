@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 resources :characters
 resources :items
 
-get '/login' => 'sessions#new'
+get '/login' => 'sessions#is_logged_in?'
 post '/login' => "sessions#create"
-delete '/login' => 'sessions#destroy'
+delete '/logout' => 'sessions#destroy'
 end
