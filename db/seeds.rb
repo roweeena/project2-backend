@@ -1,7 +1,7 @@
 User.destroy_all
-u1 = User.create :name => 'Cristhian', :email => 'cd@ga.co', :password => 'chicken',:admin => true
-u2 = User.create :name => 'Ro', :email => 'ro@ga.co', :password => 'chicken',:admin => true
-u3 = User.create :name => 'Mai', :email => 'mai@ga.co', :password => 'chicken'
+u1 = User.create :username => 'Cristhian', :email => 'cd@ga.co', :password => 'chicken',:admin => true
+u2 = User.create :username => 'Ro', :email => 'ro@ga.co', :password => 'chicken',:admin => true
+u3 = User.create :username => 'Mai', :email => 'mai@ga.co', :password => 'chicken'
 puts "#{User.count} users."
 
 Item.destroy_all
@@ -32,4 +32,4 @@ puts 'Characters and items'
 c1.items << i1
 c2.items << i2 << i5 << i6
 c3.items << i3 << i7
-c4.items << i4 
+c4.items << i4
