@@ -1,10 +1,9 @@
 class SessionsController < ApplicationController
-
-  def create
-    user = User.find_by :email => params[:email]
+def create
+    @user = User.find_by(email: session_params[:email])
 
     if @user && @user.authenticate(session_params[:password])
-      session[:user_id] = @user.id
+      login!
       render json: {
         logged_in: true,
         user: @user
@@ -12,37 +11,32 @@ class SessionsController < ApplicationController
     else
       render json: {
         status: 401,
-        errors: ['Invalid email/password. Please try again.']
+        errors: ['no such user', 'verify credentials and try again or signup']
       }
     end
   end
-
-  def is_logged_in?
-    if session[:user_id] && @current_user.present?
+def is_logged_in?
+    if logged_in? && current_user
       render json: {
         logged_in: true,
-        user: @current_user
+        user: current_user
       }
     else
       render json: {
         logged_in: false,
-        message: 'User does not exist'
+        message: 'no such user'
       }
     end
   end
-
-
-  def destroy
-    session[:user_id] = nil
+def destroy
+    logout!
     render json: {
-        status: 200,
-        logged_out: true
-      }
-    redirect_to login_path
+      status: 200,
+      logged_out: true
+    }
   end
-
-  private
+private
 def session_params
-      params.require(:user).permit(:email, :password)
-end
+    params.require(:user).permit(:username, :email, :password)
+  end
 end
