@@ -15,21 +15,16 @@ i7 = Item.create
 puts "#{ Item.count } items."
 
 Character.destroy_all
-c1 = Character.create
-c2 = Character.create
-c3 = Character.create
-c4 = Character.create
+c1 = Character.create :name => 'Ollie', :catchphrase => "Winner", :job => 'Magician', :items => '1050004', :image => ''
+c2 = Character.create :name => 'Razz', :catchphrase => "Yeah!", :job => 'Warrior', :items => '1050005', :image => ''
+c3 = Character.create :name => 'Angel'
+c4 = Character.create :name => 'Darky'
 puts "#{ Character.count } characters."
 
 puts 'Users and characters'
 
-u1.characters << c1 << c2
-u2.characters << c3
-u3.characters << c4
+u1.characters << c1
+u2.characters << c2
+u3.characters << c3
 
 puts 'Characters and items'
-
-c1.items << i1
-c2.items << i2 << i5 << i6
-c3.items << i3 << i7
-c4.items << i4
