@@ -1,5 +1,5 @@
 class CharactersController < ApplicationController
-  # before_action :set_character
+  before_action :set_character, only: %i[ show edit update destroy ]
 
   def index
     @characters = Character.all
@@ -56,34 +56,43 @@ class CharactersController < ApplicationController
 
   # PATCH/PUT /characters/1 or /characters/1.json
   def update
-    respond_to do |format|
-      if @character.update(character_params)
-        format.html { redirect_to @character, notice: "Character was successfully updated." }
-        format.json { render :show, status: :ok, location: @character }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @character.errors, status: :unprocessable_entity }
-      end
+    # @character.update character_params
+    if @character.update character_params
+        render json: {
+        status: :updated,
+        character: @character
+    }
+    else
+       render json: {
+       status: 500,
+       errors: @character.errors.full_messages
+    }
     end
   end
 
   # DELETE /characters/1 or /characters/1.json
   def destroy
-    @character.destroy
-    respond_to do |format|
-      format.html { redirect_to characters_url, notice: "Character was successfully destroyed." }
-      format.json { head :no_content }
+    if @character.destroy
+        render json: {
+        status: :deleted,
+        character: @character
+    }
+    else
+       render json: {
+       status: 500,
+       errors: @character.errors.full_messages
+    }
     end
   end
 
   private
 
-  # def set_character
-  #     @character = Character.find(params[:id])
-  # end
+  def set_character
+      @character = Character.find(params[:id])
+  end
 
   def character_params
-    params.require(:character).permit(:name, :catchphrase, :job, :user_id)
+    params.require(:character).permit(:name, :catchphrase, :job, :user_id, :items)
   end
 
 end
