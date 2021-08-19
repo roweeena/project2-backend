@@ -16,10 +16,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    if @user
+    user = User.find(params[:id])
+    character = Character.all.where(user_id: params[:id])
+    if user
        render json: {
-       user: @user
+       user: user,
+       character: character
     }
     else
        render json: {

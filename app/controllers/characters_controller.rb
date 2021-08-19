@@ -21,7 +21,8 @@ class CharactersController < ApplicationController
     @character = Character.find(params[:id])
     if @character
        render json: {
-       character: @character
+       character: @character,
+       user: @user
     }
     else
        render json: {
