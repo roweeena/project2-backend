@@ -93,7 +93,7 @@ class CharactersController < ApplicationController
   end
 
   def character_params
-    params.require(:character).permit(:name, :catchphrase, :job, :user_id, :items)
+    params.require(:character).permit(:name, :catchphrase, :job, :user_id, :items, :image)
   end
 
 end
